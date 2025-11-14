@@ -1,0 +1,92 @@
+// https://www.browserstack.com/guide/highlight-element-in-selenium
+
+import org.openqa.selenium.By;
+
+import org.openqa.selenium.JavascriptExecutor;
+
+import org.openqa.selenium.WebDriver;
+
+import org.openqa.selenium.WebElement;
+
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class HighlightElement {
+
+
+
+
+    public static void highlightElement(WebDriver driver, WebElement element) {
+
+        // Cast the WebDriver to JavascriptExecutor to execute JavaScript
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        
+
+        // Execute JavaScript to change the border of the element to red
+
+        js.executeScript("arguments[0].style.border='3px solid red'", element);
+
+    }
+
+
+
+
+    public static void main(String[] args) {
+
+      
+
+        System.setProperty("webdriver.chrome.driver", "/path/to/chromedriver"); // Update this path
+
+
+
+
+        WebDriver driver = new ChromeDriver();        // Create a new instance of the Chrome driver
+
+        
+
+        try {
+
+            driver.get("https://bstackdemo.com");            // Navigate to the specified URL
+
+
+
+
+            // Find the "Sign In" button using its ID
+
+            WebElement signInButton = driver.findElement(By.id("signin"));
+
+
+
+
+            // Highlight the "Sign In" button
+
+            highlightElement(driver, signInButton);
+
+            
+
+            // Wait for 2 seconds to see the highlighted element
+
+            Thread.sleep(2000);
+
+        } catch (InterruptedException e) {
+
+            // Handle the exception if the thread is interrupted
+
+            System.err.println("Thread was interrupted: " + e.getMessage());
+
+        } catch (Exception e) {
+
+            // Handle any other exceptions that may occur
+
+            System.err.println("An error occurred: " + e.getMessage());
+
+        } finally {
+
+            driver.quit();            // Close the browser and quit the driver
+
+        }
+
+    }
+
+}
